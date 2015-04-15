@@ -4,11 +4,11 @@ import (
 	. "riak_backup"
 	"riak_backup/test_support"
 
+	"fmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"io/ioutil"
 	"os"
-	"fmt"
 )
 
 var _ = Describe("RiakBackup", func() {
@@ -20,7 +20,7 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[0].IsDir()).To(BeTrue())
 		Expect(directories[1].IsDir()).To(BeTrue())
 
-		space_dir_names := []string{ directories[0].Name(), directories[1].Name() }
+		space_dir_names := []string{directories[0].Name(), directories[1].Name()}
 		Expect(space_dir_names).To(ContainElement("space-name-0"))
 		Expect(space_dir_names).To(ContainElement("space-name-2"))
 	})
@@ -33,7 +33,7 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[0].IsDir()).To(BeTrue())
 		Expect(directories[1].IsDir()).To(BeTrue())
 
-		instance_names := []string{ directories[0].Name(), directories[1].Name() }
+		instance_names := []string{directories[0].Name(), directories[1].Name()}
 		Expect(instance_names).To(ContainElement("service-instance-name-0"))
 		Expect(instance_names).To(ContainElement("service-instance-name-1"))
 
@@ -42,7 +42,7 @@ var _ = Describe("RiakBackup", func() {
 		Expect(directories[0].IsDir()).To(BeTrue())
 		Expect(directories[1].IsDir()).To(BeTrue())
 
-		instance_names = []string{ directories[0].Name(), directories[1].Name() }
+		instance_names = []string{directories[0].Name(), directories[1].Name()}
 		Expect(instance_names).To(ContainElement("service-instance-name-2"))
 		Expect(instance_names).To(ContainElement("service-instance-name-3"))
 		Expect(instance_names).NotTo(ContainElement("non-riak-service-instance-name"))
@@ -92,7 +92,7 @@ var _ = Describe("RiakBackup", func() {
 		Expect(string(bytes)).To(Equal("data from bucket service-instance-service-instance-guid-0"))
 	})
 
-	AfterEach(func(){
+	AfterEach(func() {
 		err := os.RemoveAll("/tmp/backup")
 		if err != nil {
 			fmt.Println(err.Error())

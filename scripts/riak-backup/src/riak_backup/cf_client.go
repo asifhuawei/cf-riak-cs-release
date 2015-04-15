@@ -1,9 +1,9 @@
 package riak_backup
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
-	"fmt"
 )
 
 type CfClientInterface interface {
@@ -17,7 +17,7 @@ type CfClientInterface interface {
 type CfClient struct {
 }
 
-func(cf *CfClient) GetSpaces(next_url string) string {
+func (cf *CfClient) GetSpaces(next_url string) string {
 	cmd := exec.Command("cf", "curl", next_url)
 	output, err := cmd.Output()
 	if err != nil {
@@ -28,7 +28,7 @@ func(cf *CfClient) GetSpaces(next_url string) string {
 	return string(output)
 }
 
-func(cf *CfClient) GetOrganization(organization_guid string) string {
+func (cf *CfClient) GetOrganization(organization_guid string) string {
 	organization_url := "/v2/organizations/" + organization_guid
 	cmd := exec.Command("cf", "curl", organization_url)
 	output, err := cmd.Output()

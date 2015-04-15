@@ -18,7 +18,7 @@ func NewS3CmdClient(config_file string) *S3CmdClient {
 	return &S3CmdClient{config_file: config_file}
 }
 
-func(s3cmd *S3CmdClient) FetchBucket(bucket_name string, destination_dir string) {
+func (s3cmd *S3CmdClient) FetchBucket(bucket_name string, destination_dir string) {
 	fmt.Printf("Backing up bucket %s to %s\n", bucket_name, destination_dir)
 
 	bucket_path := "s3://" + bucket_name

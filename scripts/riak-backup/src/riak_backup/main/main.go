@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"riak_backup"
 	"os"
 	"os/exec"
+	"riak_backup"
 )
 
 func main() {
@@ -45,4 +45,3 @@ func ensureS3cmdIsInstalled() {
 		os.Exit(1)
 	}
 }
-

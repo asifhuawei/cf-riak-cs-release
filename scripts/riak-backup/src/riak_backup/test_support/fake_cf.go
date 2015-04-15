@@ -1,47 +1,54 @@
 package test_support
 
-import(
-	"io/ioutil"
+import (
 	"fmt"
+	"io/ioutil"
 	"path/filepath"
-	"runtime"
 	"regexp"
+	"runtime"
 	"strconv"
 )
 
 type FakeCfClient struct {
 }
 
-func(cf *FakeCfClient) GetSpaces(next_url string) string {
+func (cf *FakeCfClient) GetSpaces(next_url string) string {
 	page := extractPageNumber("spaces", next_url)
 	filename := fmt.Sprintf("successful_get_spaces_response_page_%d.json", page)
 	return readFixtureFile(filename)
 }
 
-func(cf *FakeCfClient) GetOrganization(organization_guid string) string {
+func (cf *FakeCfClient) GetOrganization(organization_guid string) string {
 	var filename string
 	switch organization_guid {
-		case "organization-guid-0": filename = "successful_get_organization_response.json"
-		default: panic("fixture file not found")
+	case "organization-guid-0":
+		filename = "successful_get_organization_response.json"
+	default:
+		panic("fixture file not found")
 	}
 
 	return readFixtureFile(filename)
 }
 
-func(cf *FakeCfClient) GetServiceInstancesForSpace(space_guid string) string {
+func (cf *FakeCfClient) GetServiceInstancesForSpace(space_guid string) string {
 	var filename string
 	switch space_guid {
-		case "space-guid-0": filename = "successful_get_instances_for_space_0_response.json"
-		case "space-guid-1": return "{}"
-		case "space-guid-2": filename = "successful_get_instances_for_space_2_response.json"
-		case "space-guid-3": filename = "successful_get_instances_for_space_3_response.json"
-		default: panic("fixture file not found")
+	case "space-guid-0":
+		filename = "successful_get_instances_for_space_0_response.json"
+	case "space-guid-1":
+		return "{}"
+	case "space-guid-2":
+		filename = "successful_get_instances_for_space_2_response.json"
+	case "space-guid-3":
+		filename = "successful_get_instances_for_space_3_response.json"
+	default:
+		panic("fixture file not found")
 	}
 
 	return readFixtureFile(filename)
 }
 
-func(cf *FakeCfClient) GetBindings(next_url string) string {
+func (cf *FakeCfClient) GetBindings(next_url string) string {
 	service_instance_guid := extractServiceInstanceGuid(next_url)
 
 	resource := fmt.Sprintf("service_instances/%s/service_bindings", service_instance_guid)
@@ -50,15 +57,18 @@ func(cf *FakeCfClient) GetBindings(next_url string) string {
 
 	var filename string
 	switch service_instance_guid {
-		case "service-instance-guid-0": filename = path
-		case "service-instance-guid-1", "service-instance-guid-2", "service-instance-guid-3": return "{}"
-		default: panic(fmt.Sprintf("fixture file not found for %s", service_instance_guid))
+	case "service-instance-guid-0":
+		filename = path
+	case "service-instance-guid-1", "service-instance-guid-2", "service-instance-guid-3":
+		return "{}"
+	default:
+		panic(fmt.Sprintf("fixture file not found for %s", service_instance_guid))
 	}
 
 	return readFixtureFile(filename)
 }
 
-func(cf *FakeCfClient) Login(user, password string) {
+func (cf *FakeCfClient) Login(user, password string) {
 }
 
 func readFixtureFile(filename string) string {

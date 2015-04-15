@@ -1,11 +1,11 @@
 package riak_backup
 
 import (
-	"fmt"
 	"encoding/json"
-	"os"
+	"fmt"
 	"gopkg.in/v1/yaml"
 	"io/ioutil"
+	"os"
 )
 
 type Organization struct {
@@ -14,8 +14,8 @@ type Organization struct {
 	}
 }
 
-type Spaces struct{
-	NextUrl string `json:"next_url"`
+type Spaces struct {
+	NextUrl   string `json:"next_url"`
 	Resources []Space
 }
 
@@ -24,7 +24,7 @@ type Space struct {
 		Guid string
 	}
 	Entity struct {
-		Name string
+		Name             string
 		OrganizationGuid string `json:"organization_guid"`
 	}
 }
@@ -40,13 +40,13 @@ type ServicePlan struct {
 }
 
 type ServiceInstance struct {
-	Guid string
-	Name string
+	Guid        string
+	Name        string
 	ServicePlan ServicePlan `json:"service_plan"`
 }
 
 type Bindings struct {
-	NextUrl string `json:"next_url"`
+	NextUrl   string `json:"next_url"`
 	Resources []Binding
 }
 
@@ -156,7 +156,7 @@ func writeMetadataFile(backup_dir string, cf CfClientInterface, organization_nam
 	app_metadatas := []AppMetadata{}
 	for _, binding := range bindings {
 		bound_app := binding.Entity.App
-		app_metadatas = append(app_metadatas, AppMetadata{ Name: bound_app.Entity.Name, Guid: bound_app.Metadata.Guid })
+		app_metadatas = append(app_metadatas, AppMetadata{Name: bound_app.Entity.Name, Guid: bound_app.Metadata.Guid})
 	}
 	metadata.BoundApps = app_metadatas
 

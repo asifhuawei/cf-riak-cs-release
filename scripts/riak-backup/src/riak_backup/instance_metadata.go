@@ -1,14 +1,14 @@
 package riak_backup
 
 import (
+	"fmt"
 	"gopkg.in/v1/yaml"
 	"io/ioutil"
-	"fmt"
 )
 
 type InstanceMetadata struct {
-	ServiceInstanceGuid string "service_instance_guid"
-	BoundApps []AppMetadata "bound_apps"
+	ServiceInstanceGuid string        "service_instance_guid"
+	BoundApps           []AppMetadata "bound_apps"
 }
 
 type AppMetadata struct {
